@@ -9,7 +9,13 @@
         <string name="monnaie_courante">Monnaie Courante</string>
         <string name="montant">Montant:</string>
         <string name="txtResultat" />
+        <string name="quitter">Quitter</string>
+        <string name="item2">Item2</string>
+    <string name="item1">Item1</string>
+    <string name="changer_fond">changer fond</string>
+    <string name="configuration">configuration</string>
+    <string name="changer_langue">changer langue</string>
 
 
-    </resources>
+</resources>
 

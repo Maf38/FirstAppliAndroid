@@ -1,8 +1,12 @@
 package com.exercice.maf.firstappli;
 
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -38,6 +42,35 @@ private ArrayAdapter <String> adapter;
         spinArrivee.setAdapter(adapter);
 
     }
+
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        //Instanciation du menu XML spécifier en un objet Menu
+        inflater.inflate(R.menu.menuprincipale, menu);
+        return true;
+    }
+
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //On teste l’Id de l’item cliqué et on déclenche une action
+
+        boolean ok=false;
+
+        switch (item.getItemId()) {
+            case R.id.menuChangerFond:
+                Toast.makeText(this, "t'as selectionné l'item1", Toast.LENGTH_SHORT).show();
+                ok = true;
+            case R.id.menuChangerLangue:
+                Intent changerLangue = new Intent( Settings.ACTION_LOCALE_SETTINGS) ;
+                startActivity(changerLangue);
+                ok = true;
+            case R.id.menuQuitter:
+                Toast.makeText(this, "t'aimerais bien quitter!...c'est bien", Toast.LENGTH_SHORT).show();
+                finish();
+                ok=true;
+        }
+        return ok;}
 
     public boolean calculer (View v)
     {
