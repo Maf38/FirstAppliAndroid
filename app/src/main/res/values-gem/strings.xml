@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Konverter</string>
+    <string name="hello">Halo XML</string>
+    <string name="convertisseur">Convertisseur gebrukt</string>
+    <string name="convertir">konvertieren</string>
+    <string name="monnaie_convertir">umzuwandeln</string>
+    <string name="monnaie_courante">alltäglich</string>
+    <string name="montant">Betrag</string>
+    <string name="txtResultat" />
+
+
+</resources>

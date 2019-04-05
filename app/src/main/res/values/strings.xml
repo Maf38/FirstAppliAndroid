@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">FirstAppli</string>
+    <string name="hello">Coucou XML</string>
+    <string name="convertisseur">Converter</string>
+    <string name="convertir">Convert</string>
+    <string name="monnaie_convertir">Money to convert</string>
+    <string name="monnaie_courante">Current money</string>
+    <string name="montant">Amount:</string>
+
+    <string name="title_activity_resultat_conversion">resultatConversion</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="txtResultat" />
+
+
+</resources>
