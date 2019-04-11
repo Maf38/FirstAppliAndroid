@@ -95,4 +95,10 @@
         android:onClick="calculer"
         android:text="@string/convertir" />
 
+    <ImageView
+        android:id="@+id/imageViewOption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/option3" />
+
 </LinearLayout>
