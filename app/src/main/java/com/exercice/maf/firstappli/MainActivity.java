@@ -27,6 +27,7 @@ private Spinner spinArrivee;
 private EditText montant;
 private ArrayAdapter <String> adapter;
 private Intent intentPrincipale ;
+private boolean fond = true;
 
 
     @Override
@@ -37,12 +38,11 @@ private Intent intentPrincipale ;
 
         setContentView(R.layout.activity_main);
         initBouton();
-        intentPrincipale = new Intent(this, MainActivity.class);
-        intentPrincipale.putExtra("skinPrincipale", "default");
 
 
 
-
+        //intentPrincipale = new Intent(this, MainActivity.class);
+        //intentPrincipale.putExtra("skinPrincipale", "default");
 
     }
 
@@ -51,13 +51,15 @@ private Intent intentPrincipale ;
 
 
         super.onRestart();
-        if (intentPrincipale.getExtras().getString("skinPrincipale").equals("default")) {
+       /* if (intentPrincipale.getExtras().getString("skinPrincipale").equals("default")) {
             setContentView(R.layout.activity_main);
             initBouton();
         } else {
             setContentView(R.layout.activity_main2);
             initBouton();
         }
+        */
+
     }
 
     private void initBouton(){
@@ -90,11 +92,12 @@ private Intent intentPrincipale ;
 
         switch (item.getItemId()) {
             case R.id.menuChangerFond:
-                //switch(R.id.menuChangerFond)
-                intentPrincipale.putExtra("skinPrincipale", "verte") ;
-                Toast.makeText(this, "skin principale = " + intentPrincipale.getExtras().getString("skinPrincipale"), Toast.LENGTH_SHORT).show();
-                finish();
-                startActivity(intentPrincipale);
+
+                changerFond();
+               //intentPrincipale.putExtra("skinPrincipale", "verte") ;
+                //Toast.makeText(this, "skin principale = " + intentPrincipale.getExtras().getString("skinPrincipale"), Toast.LENGTH_SHORT).show();
+                //finish();
+
                 return true;
             case R.id.menuChangerLangue:
                 Intent changerLangue = new Intent( Settings.ACTION_LOCALE_SETTINGS) ;
@@ -155,12 +158,18 @@ private Intent intentPrincipale ;
         return ok;
     }
 
-    public boolean changerFond (View v, String couleur){
+    public void changerFond (){
 
-        boolean ok= true;
-        
+       if (fond) {
+           setContentView(R.layout.activity_main2);
+           fond = false;
+       }
+       else {
+           setContentView(R.layout.activity_main);
+           fond = true;
+       }
+      initBouton();
 
-        return ok;
     }
 
 }
