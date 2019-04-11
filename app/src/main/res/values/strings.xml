@@ -18,6 +18,9 @@
     <string name="changer_fond">changer fond</string>
     <string name="configuration">configuration</string>
     <string name="changer_langue">changer langue</string>
+    <string name="changer_orientation">Changer orientation</string>
+    <string name="portrait">Portrait</string>
+    <string name="capteur">par capteur</string>
 
 
 </resources>

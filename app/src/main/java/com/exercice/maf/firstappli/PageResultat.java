@@ -44,18 +44,18 @@ public class PageResultat extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
     //On teste l’Id de l’item cliqué et on déclenche une action
 
-        boolean ok=false;
+
 
         switch (item.getItemId()) {
             case R.id.item1:
                 Toast.makeText(this, "t'as selectionné l'item1", Toast.LENGTH_SHORT).show();
-                ok = true;
+                return true;
             case R.id.item2:
                 Toast.makeText(this, "t'as selectionné l'item2", Toast.LENGTH_SHORT).show();
-                ok = true;
+                return true;
             case R.id.quitter:
                 Toast.makeText(this, "t'aimerais bien quitter!...c'est bien", Toast.LENGTH_SHORT).show();
-                ok=true;
+                return true;
         }
-        return ok;}
+        return false;}
 }

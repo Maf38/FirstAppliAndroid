@@ -1,6 +1,7 @@
 package com.exercice.maf.firstappli;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,24 +26,53 @@ private Spinner spinDepart;
 private Spinner spinArrivee;
 private EditText montant;
 private ArrayAdapter <String> adapter;
+private Intent intentPrincipale ;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+        initBouton();
+        intentPrincipale = new Intent(this, MainActivity.class);
+        intentPrincipale.putExtra("skinPrincipale", "default");
+
+
+
+
+
+    }
+
+    @Override
+    protected void onRestart() {
+
+
+        super.onRestart();
+        if (intentPrincipale.getExtras().getString("skinPrincipale").equals("default")) {
+            setContentView(R.layout.activity_main);
+            initBouton();
+        } else {
+            setContentView(R.layout.activity_main2);
+            initBouton();
+        }
+    }
+
+    private void initBouton(){
         spinDepart = (Spinner) findViewById(R.id.spinDepart);
         spinArrivee =(Spinner) findViewById(R.id.spinArrivee);
         montant = (EditText) findViewById(R.id.editMontant);
 
         ArrayList <String> toto = new ArrayList<>(getConversionTable().keySet());
         adapter = new ArrayAdapter <String> (this,android.R.layout.simple_spinner_item, toto);
-        //Définir le style des éléments de l'adapte
+        //Définir le style des éléments de l'adapteur
         adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         spinDepart.setAdapter(adapter);
         spinArrivee.setAdapter(adapter);
-
     }
+
 
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -55,22 +86,42 @@ private ArrayAdapter <String> adapter;
     public boolean onOptionsItemSelected(MenuItem item) {
         //On teste l’Id de l’item cliqué et on déclenche une action
 
-        boolean ok=false;
+
 
         switch (item.getItemId()) {
             case R.id.menuChangerFond:
-                Toast.makeText(this, "t'as selectionné l'item1", Toast.LENGTH_SHORT).show();
-                ok = true;
+                //switch(R.id.menuChangerFond)
+                intentPrincipale.putExtra("skinPrincipale", "verte") ;
+                Toast.makeText(this, "skin principale = " + intentPrincipale.getExtras().getString("skinPrincipale"), Toast.LENGTH_SHORT).show();
+                finish();
+                startActivity(intentPrincipale);
+                return true;
             case R.id.menuChangerLangue:
                 Intent changerLangue = new Intent( Settings.ACTION_LOCALE_SETTINGS) ;
                 startActivity(changerLangue);
-                ok = true;
+                return true;
+            case R.id.switchOrientation:
+                 Switch swFond = (Switch) item;
+
+                 swFond.setShowText(true);
+                 /*if (swFond.isChecked()){
+                     Toast.makeText(this, "t'as selectionné l'orientation isChecked", Toast.LENGTH_SHORT).show();
+                 }
+                 else{
+                     Toast.makeText(this, "t'as selectionné l'orientation is not Checked", Toast.LENGTH_SHORT).show();
+                 }*/
+
+
+                //etRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                return true;
+
             case R.id.menuQuitter:
-                Toast.makeText(this, "t'aimerais bien quitter!...c'est bien", Toast.LENGTH_SHORT).show();
                 finish();
-                ok=true;
+                return true;
         }
-        return ok;}
+        return false;}
+
+
 
     public boolean calculer (View v)
     {
@@ -100,6 +151,14 @@ private ArrayAdapter <String> adapter;
             ok= false;
             Toast.makeText(this, "Veuillez saisir un montant!", Toast.LENGTH_SHORT).show();
         }
+
+        return ok;
+    }
+
+    public boolean changerFond (View v, String couleur){
+
+        boolean ok= true;
+        
 
         return ok;
     }

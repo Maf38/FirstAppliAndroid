@@ -10,9 +10,14 @@
             <item
                 android:id="@+id/menuChangerFond"
                 android:title="@string/changer_fond" />
+            <item
+                android:id="@+id/switchOrientation"
+                android:title="@string/capteur"
+                app:actionLayout="@layout/switch_item"
+                app:showAsAction="always" />
         </menu>
     </item>
     <item
         android:id="@+id/menuQuitter"
-        android:title="@string/quitter" />
+        android:title="@string/quitter" ></item>
 </menu>
