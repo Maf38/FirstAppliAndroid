@@ -5,12 +5,14 @@ import android.content.pm.ActivityInfo;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 private Spinner spinDepart;
 private Spinner spinArrivee;
 private EditText montant;
+private ImageView optionView;
 private ArrayAdapter <String> adapter;
 private Intent intentPrincipale ;
 private boolean fond = true;
@@ -66,6 +69,7 @@ private boolean fond = true;
         spinDepart = (Spinner) findViewById(R.id.spinDepart);
         spinArrivee =(Spinner) findViewById(R.id.spinArrivee);
         montant = (EditText) findViewById(R.id.editMontant);
+        optionView= (ImageView) findViewById(R.id.imageViewOption);
 
         ArrayList <String> toto = new ArrayList<>(getConversionTable().keySet());
         adapter = new ArrayAdapter <String> (this,android.R.layout.simple_spinner_item, toto);
@@ -73,6 +77,8 @@ private boolean fond = true;
         adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         spinDepart.setAdapter(adapter);
         spinArrivee.setAdapter(adapter);
+
+        registerForContextMenu(findViewById(R.id.imageViewOption));
     }
 
 
@@ -83,6 +89,53 @@ private boolean fond = true;
         inflater.inflate(R.menu.menuprincipale, menu);
         return true;
     }
+
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
+    {
+        MenuInflater inflater = getMenuInflater();
+        //Instanciation du menu XML spécifier en un objet Menu
+        inflater.inflate(R.menu.menuprincipale, menu);
+
+    }
+
+    public boolean onContextItemSelected(MenuItem item) {
+        //On teste l’Id de l’item cliqué et on déclenche une action
+
+
+
+        switch (item.getItemId()) {
+            case R.id.menuChangerFond:
+
+                changerFond();
+                //intentPrincipale.putExtra("skinPrincipale", "verte") ;
+                //Toast.makeText(this, "skin principale = " + intentPrincipale.getExtras().getString("skinPrincipale"), Toast.LENGTH_SHORT).show();
+                //finish();
+
+                return true;
+            case R.id.menuChangerLangue:
+                Intent changerLangue = new Intent( Settings.ACTION_LOCALE_SETTINGS) ;
+                startActivity(changerLangue);
+                return true;
+            case R.id.switchOrientation:
+                Switch swFond = (Switch) item;
+
+                swFond.setShowText(true);
+                 /*if (swFond.isChecked()){
+                     Toast.makeText(this, "t'as selectionné l'orientation isChecked", Toast.LENGTH_SHORT).show();
+                 }
+                 else{
+                     Toast.makeText(this, "t'as selectionné l'orientation is not Checked", Toast.LENGTH_SHORT).show();
+                 }*/
+
+
+                //etRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                return true;
+
+            case R.id.menuQuitter:
+                finish();
+                return true;
+        }
+        return false;}
 
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -146,7 +199,6 @@ private boolean fond = true;
             intent.putExtra("deviseArrivee",deviseArrivee);
             intent.putExtra("resultat",resultat.toString());
             intent.putExtra("montantInitial", montantAConvertir.toString());
-
 
             startActivity(intent);
         }

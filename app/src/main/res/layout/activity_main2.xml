@@ -6,14 +6,14 @@
     android:layout_width="match_parent"
 
     android:layout_height="match_parent"
-    android:background="@android:color/holo_green_dark"
-    android:backgroundTint="@android:color/holo_green_light"
+    android:background="@color/colorPrimaryDark"
+    android:backgroundTint="@color/colorPrimaryDark"
     android:orientation="vertical"
-    android:theme="@android:style/Animation.Translucent"
+    android:theme="@android:style/Theme.Material.Light.LightStatusBar"
     tools:context=".MainActivity">
 
 
-    <TextView
+    <TextView style="@style/textStyle1"
         android:id="@+id/textView"
         android:layout_width="fill_parent"
         android:layout_height="99dp"
@@ -25,7 +25,7 @@
         android:layout_height="78dp"
         android:orientation="horizontal">
 
-        <TextView
+        <TextView style="@style/comboBox"
             android:id="@+id/textView3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
         android:layout_height="78dp"
         android:orientation="horizontal">
 
-        <TextView
+        <TextView style="@style/comboBox"
             android:id="@+id/textView4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -92,7 +92,15 @@
         android:layout_height="75dp"
 
         android:layout_gravity="center"
+        android:background="@color/colorAccent"
         android:onClick="calculer"
         android:text="@string/convertir" />
+
+    <ImageView
+        android:id="@+id/imageViewOption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:srcCompat="@drawable/option3" />
 
 </LinearLayout>

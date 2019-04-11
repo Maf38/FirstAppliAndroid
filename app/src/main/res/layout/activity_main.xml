@@ -9,7 +9,7 @@
     android:background="@color/colorPrimaryDark"
     android:backgroundTint="@color/colorPrimaryDark"
     android:orientation="vertical"
-    android:theme="@android:style/Animation.Translucent"
+    android:theme="@android:style/Theme.Holo.Light.DarkActionBar"
     tools:context=".MainActivity">
 
 
