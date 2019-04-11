@@ -7,11 +7,11 @@
     <string name="monnaie_courante">Current money</string>
     <string name="montant">Amount:</string>
 
-    <string name="title_activity_resultat_conversion">resultatConversion</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="txtResultat" />
-    <string name="options">Options</string>
+    <string name="title_activity_resultat_conversion" translatable="false">resultatConversion</string>
+    <string name="dummy_button" translatable="false">Dummy Button</string>
+    <string name="dummy_content" translatable="false">DUMMY\nCONTENT</string>
+    <string name="txtResultat" translatable="false" />
+    <string name="options" translatable="false">Options</string>
     <string name="quitter">Quitter</string>
     <string name="item2">Item2</string>
     <string name="item1">Item1</string>
@@ -19,8 +19,10 @@
     <string name="configuration">configuration</string>
     <string name="changer_langue">changer langue</string>
     <string name="changer_orientation">Changer orientation</string>
-    <string name="portrait">Portrait</string>
+    <string name="portrait" translatable="false">Portrait</string>
     <string name="capteur">par capteur</string>
+    <string name="textview">title</string>
+    <string name="dateRemerciement">date</string>
 
 
 </resources>

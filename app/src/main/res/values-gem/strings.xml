@@ -17,6 +17,7 @@
     <string name="changer_orientation">Changer orientation</string>
     <string name="portrait">Portrait</string>
     <string name="capteur">par capteur</string>
+    <string name="dateRemerciement">date</string>
 
 
 </resources>

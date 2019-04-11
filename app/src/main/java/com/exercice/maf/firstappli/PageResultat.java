@@ -6,15 +6,22 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewAnimator;
 
 public class PageResultat extends AppCompatActivity {
+
+    private ViewAnimator viewAnimator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_page_resultat);
+
+        viewAnimator = (ViewAnimator) this.findViewById(R.id.pageResultat);
+
+        setContentView(R.layout.activity_resultat);
 
         //Une petite flèche apparait alors dans l’action bar à gauche du titre de l’application
         getSupportActionBar().setDisplayHomeAsUpEnabled(true) ;
@@ -36,7 +43,7 @@ public class PageResultat extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu)
     {
         MenuInflater inflater = getMenuInflater();
-    //Instanciation du menu XML spécifier en un objet Menu
+        //Instanciation du menu XML spécifier en un objet Menu
         inflater.inflate(R.menu.menumaf, menu);
         return true;
     }
@@ -58,4 +65,12 @@ public class PageResultat extends AppCompatActivity {
                 return true;
         }
         return false;}
+
+
+
+    public void rotation(View view)
+    {
+        // Pour lancer la rotation
+        AnimationFactory.flipTransition(viewAnimator, AnimationFactory.FlipDirection.LEFT_RIGHT);
+    }
 }
