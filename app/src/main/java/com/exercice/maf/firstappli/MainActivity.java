@@ -20,13 +20,15 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import metier.ConvertisseurXML;
+
 import static metier.Convertisseur.convertir;
 import static metier.Convertisseur.getConversionTable;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    private static final String PREFS_NAME = "MyPrefsFile";
+private static final String PREFS_NAME = "MyPrefsFile";
 private Spinner spinDepart;
 private Spinner spinArrivee;
 private EditText montant;
@@ -81,7 +83,8 @@ private boolean fond = true;
         montant = (EditText) findViewById(R.id.editMontant);
         optionView= (ImageView) findViewById(R.id.imageViewOption);
 
-        ArrayList <String> toto = new ArrayList<>(getConversionTable().keySet());
+        ConvertisseurXML conv= new ConvertisseurXML(this);
+        ArrayList <String> toto = new ArrayList<>(conv.getConversionTable().keySet());
         adapter = new ArrayAdapter <String> (this,android.R.layout.simple_spinner_item, toto);
         //Définir le style des éléments de l'adapteur
         adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
