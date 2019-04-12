@@ -21,8 +21,9 @@
     <string name="changer_orientation">Changer orientation</string>
     <string name="portrait" translatable="false">Portrait</string>
     <string name="capteur">par capteur</string>
-    <string name="textview">title</string>
+    <string name="textview" translatable="false">title</string>
     <string name="dateRemerciement">date</string>
+    <string name="goodbye" translatable="false">Merci d\'avoir utilisé l\'appli!</string>
 
 
 </resources>

@@ -20,6 +20,7 @@
     <string name="capteur">par capteur</string>
     <string name="textview">title</string>
     <string name="dateRemerciement">date</string>
+    <string name="goodbye" />
 
 </resources>
 

@@ -18,6 +18,7 @@
     <string name="portrait">Portrait</string>
     <string name="capteur">par capteur</string>
     <string name="dateRemerciement">date</string>
+    <string name="goodbye" />
 
 
 </resources>

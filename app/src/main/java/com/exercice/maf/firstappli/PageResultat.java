@@ -19,9 +19,11 @@ public class PageResultat extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        viewAnimator = (ViewAnimator) this.findViewById(R.id.pageResultat);
 
         setContentView(R.layout.activity_resultat);
+        viewAnimator = (ViewAnimator) this.findViewById(R.id.pageResultat);
+
+
 
         //Une petite flèche apparait alors dans l’action bar à gauche du titre de l’application
         getSupportActionBar().setDisplayHomeAsUpEnabled(true) ;

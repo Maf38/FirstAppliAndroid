@@ -4,44 +4,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:theme="@android:style/Theme.Holo.Light.DarkActionBar"
+    >
 
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
 
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/aurevoir">
 
-        <TextView
-            android:id="@+id/textedateRemerciement"
-            android:layout_width="120dp"
-            android:layout_height="197dp"
-            android:layout_marginStart="42dp"
-            android:layout_marginTop="37dp"
-            android:layout_marginEnd="217dp"
-            android:layout_marginBottom="29dp"
-            android:text="@string/dateRemerciement" />
-
-        <TextView
+        <TextView style="@style/textStyle1"
             android:id="@+id/titreRemerciement"
-            android:layout_width="262dp"
-            android:layout_height="108dp"
-            android:layout_marginStart="82dp"
-            android:layout_marginTop="66dp"
-            android:layout_marginEnd="35dp"
-            android:layout_marginBottom="110dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse" />
+            android:layout_width="258dp"
+            android:layout_height="104dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="300dp"
+            android:layout_marginEnd="149dp"
+            android:layout_marginBottom="300dp"
+            android:gravity="center"
+            android:text="@string/goodbye"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="259dp"
-            android:layout_height="225dp"
-            android:layout_marginStart="82dp"
-            android:layout_marginEnd="38dp"
-            android:layout_marginBottom="99dp"
-
-            />
-
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </RelativeLayout>

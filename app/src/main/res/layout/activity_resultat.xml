@@ -10,9 +10,13 @@
         android:layout_gravity="center"
         android:layout_margin="20dp"
         android:addStatesFromChildren="true"
-        android:gravity="center" >
+        android:gravity="center"
+        android:clickable="true"
+        android:onClick="rotation"
+        >
         <include layout="@layout/activity_page_resultat" />
         <include layout="@layout/remerciement" />
+
     </ViewFlipper>
 
 
