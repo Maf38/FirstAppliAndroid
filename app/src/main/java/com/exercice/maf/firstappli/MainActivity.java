@@ -1,6 +1,7 @@
 package com.exercice.maf.firstappli;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,8 @@ import static metier.Convertisseur.getConversionTable;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    private static final String PREFS_NAME = "MyPrefsFile";
 private Spinner spinDepart;
 private Spinner spinArrivee;
 private EditText montant;
@@ -38,7 +41,6 @@ private boolean fond = true;
 
 
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
         initBouton();
 
@@ -66,6 +68,14 @@ private boolean fond = true;
     }
 
     private void initBouton(){
+        //on récupère le fichier de préférences
+        SharedPreferences settings=getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
+        //on crée un objet Editor pour travailler sur les preferences
+        SharedPreferences.Editor editor = settings.edit();
+
+
+
+        //creation des views
         spinDepart = (Spinner) findViewById(R.id.spinDepart);
         spinArrivee =(Spinner) findViewById(R.id.spinArrivee);
         montant = (EditText) findViewById(R.id.editMontant);
@@ -77,6 +87,22 @@ private boolean fond = true;
         adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         spinDepart.setAdapter(adapter);
         spinArrivee.setAdapter(adapter);
+
+        //Toast.makeText(this,"settings spinner depart =" + settings.getString("spinDepart","defValue") , Toast.LENGTH_SHORT).show();
+
+        //Positionnement des spinners suivant les paramètres
+        if (!settings.getString("spinDepart","defValue").equals("defValue")){//Le paramètre defValue est retourné si aucune valeur existe
+            //cas où on a trouvé une préférence pour le spinner départ
+            int spinnerPosition = adapter.getPosition(settings.getString("spinDepart","defValue"));
+            spinDepart.setSelection(spinnerPosition);
+        }
+
+        if (!settings.getString("spinArrivee","defValue").equals("defValue")){//Le paramètre defValue est retourné si aucune valeur existe
+            //cas où on a trouvé une préférence pour le spinner arrivée
+            int spinnerPosition = adapter.getPosition(settings.getString("spinArrivee","defValue"));
+            spinArrivee.setSelection(spinnerPosition);
+        }
+
 
         registerForContextMenu(findViewById(R.id.imageViewOption));
     }
@@ -188,6 +214,15 @@ private boolean fond = true;
 
         String deviseDepart = spinDepart.getSelectedItem().toString();
         String deviseArrivee = spinArrivee.getSelectedItem().toString();
+
+        //on récupère le fichier de préférences
+        SharedPreferences settings=getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
+        //on crée un objet Editor pour travailler sur les preferences
+        SharedPreferences.Editor editor = settings.edit();
+        //stockage dans les preferences des positions des spinners
+        editor.putString("spinDepart",deviseDepart);
+        editor.putString("spinArrivee",deviseArrivee);
+        editor.commit();
 
         if (!montant.getText().toString().isEmpty() && !montant.getText().toString().equals(".")) { //cas où on a saisi un montant
             Double montantAConvertir = Double.parseDouble(montant.getText().toString());
