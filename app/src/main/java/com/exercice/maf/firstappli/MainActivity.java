@@ -17,14 +17,15 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+
+
 import java.util.ArrayList;
-import java.util.Map;
 
-import dao.DatabaseManager;
+
+
 import metier.ConvertisseurBDD;
+import metier.ConvertisseurSOAP;
 import metier.ConvertisseurXML;
-
-import static metier.Convertisseur.convertir;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -39,6 +40,7 @@ private ArrayAdapter <String> adapter;
 private boolean fond = true;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -46,12 +48,23 @@ private boolean fond = true;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initBouton();
-        //databaseManager= new DatabaseManager(this);
-        //databaseManager.insertMoney("Yuan",0.03);
-        //databaseManager.insertMoney("dollard US", 1.0);
-        //databaseManager.insertMoney("Lyret", 1.548);
-        Log.d("testDebug", "Mayday Mayday");
 
+
+
+        //Creation d'une BDD à l'arrache!!!...puis mis en commentaire (mon telephone n'est pas rooté donc je ne peux pas acceder facilement à la BDD et l'editer)..pas le temps de trouver une soluce
+        /*
+        DatabaseManager databaseManager= new DatabaseManager(this);
+        databaseManager= new DatabaseManager(this);
+        databaseManager.insertMoney("Yuan",6.71);
+        databaseManager.insertMoney("Dollard US", 1.0);
+        databaseManager.insertMoney("Couronne Suédoise", 9.27);
+        databaseManager.insertMoney("Bitcoin",0.0002);
+        databaseManager.insertMoney("Yen", 112.02);
+        databaseManager.insertMoney("Roupie Népalaise", 110.75);
+        databaseManager.insertMoney("Franc Suisse", 1.0);
+        databaseManager.insertMoney("Euro", 0.88);
+
+        */
         //Toast.makeText(this,listeDevise.get("Yuan").toString(), Toast.LENGTH_SHORT).show();
 
     }
@@ -85,7 +98,7 @@ private boolean fond = true;
 
 
 
-        ConvertisseurBDD conv= new ConvertisseurBDD(this);
+        ConvertisseurXML conv= new ConvertisseurXML(this);
         ArrayList <String> toto = new ArrayList<>(conv.getConversionTable().keySet());
         adapter = new ArrayAdapter <String> (this,android.R.layout.simple_spinner_item, toto);
         //Définir le style des éléments de l'adapteur
@@ -212,6 +225,9 @@ private boolean fond = true;
     public boolean calculer (View v)
     {
 
+        AsyncTaskExample asyncTaskExample = new AsyncTaskExample(this);
+        asyncTaskExample.execute();
+
         boolean ok= true;
 
         Double resultat;
@@ -230,7 +246,7 @@ private boolean fond = true;
 
         if (!montant.getText().toString().isEmpty() && !montant.getText().toString().equals(".")) { //cas où on a saisi un montant
             Double montantAConvertir = Double.parseDouble(montant.getText().toString());
-            resultat = ConvertisseurBDD.convertir(deviseDepart, deviseArrivee, montantAConvertir);
+            resultat = ConvertisseurXML.convertir(deviseDepart, deviseArrivee, montantAConvertir);
             Toast.makeText(this, resultat.toString(), Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(this, PageResultat.class);
@@ -262,5 +278,7 @@ private boolean fond = true;
       initBouton();
 
     }
+
+
 
 }
