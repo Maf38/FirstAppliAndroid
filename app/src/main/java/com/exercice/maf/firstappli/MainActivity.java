@@ -1,11 +1,10 @@
 package com.exercice.maf.firstappli;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,11 +18,14 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Map;
 
+import dao.DatabaseManager;
+import metier.ConvertisseurBDD;
 import metier.ConvertisseurXML;
 
 import static metier.Convertisseur.convertir;
-import static metier.Convertisseur.getConversionTable;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,7 +36,6 @@ private Spinner spinArrivee;
 private EditText montant;
 private ImageView optionView;
 private ArrayAdapter <String> adapter;
-private Intent intentPrincipale ;
 private boolean fond = true;
 
 
@@ -45,11 +46,13 @@ private boolean fond = true;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initBouton();
+        //databaseManager= new DatabaseManager(this);
+        //databaseManager.insertMoney("Yuan",0.03);
+        //databaseManager.insertMoney("dollard US", 1.0);
+        //databaseManager.insertMoney("Lyret", 1.548);
+        Log.d("testDebug", "Mayday Mayday");
 
-
-
-        //intentPrincipale = new Intent(this, MainActivity.class);
-        //intentPrincipale.putExtra("skinPrincipale", "default");
+        //Toast.makeText(this,listeDevise.get("Yuan").toString(), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -58,14 +61,7 @@ private boolean fond = true;
 
 
         super.onRestart();
-       /* if (intentPrincipale.getExtras().getString("skinPrincipale").equals("default")) {
-            setContentView(R.layout.activity_main);
-            initBouton();
-        } else {
-            setContentView(R.layout.activity_main2);
-            initBouton();
-        }
-        */
+
 
     }
 
@@ -83,7 +79,13 @@ private boolean fond = true;
         montant = (EditText) findViewById(R.id.editMontant);
         optionView= (ImageView) findViewById(R.id.imageViewOption);
 
-        ConvertisseurXML conv= new ConvertisseurXML(this);
+
+
+
+
+
+
+        ConvertisseurBDD conv= new ConvertisseurBDD(this);
         ArrayList <String> toto = new ArrayList<>(conv.getConversionTable().keySet());
         adapter = new ArrayAdapter <String> (this,android.R.layout.simple_spinner_item, toto);
         //Définir le style des éléments de l'adapteur
@@ -105,7 +107,6 @@ private boolean fond = true;
             int spinnerPosition = adapter.getPosition(settings.getString("spinArrivee","defValue"));
             spinArrivee.setSelection(spinnerPosition);
         }
-
 
         registerForContextMenu(findViewById(R.id.imageViewOption));
     }
@@ -229,8 +230,8 @@ private boolean fond = true;
 
         if (!montant.getText().toString().isEmpty() && !montant.getText().toString().equals(".")) { //cas où on a saisi un montant
             Double montantAConvertir = Double.parseDouble(montant.getText().toString());
-            resultat = convertir(deviseDepart, deviseArrivee, montantAConvertir);
-            //Toast.makeText(this, resultat.toString(), Toast.LENGTH_SHORT).show();
+            resultat = ConvertisseurBDD.convertir(deviseDepart, deviseArrivee, montantAConvertir);
+            Toast.makeText(this, resultat.toString(), Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(this, PageResultat.class);
             intent.putExtra("deviseDepart",deviseDepart);
