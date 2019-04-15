@@ -54,5 +54,49 @@ public class ConvertisseurSOAP  {
         return result;
     }
 
+    public String Convertir(String source,String cible, String montant){
+        String result="";
+
+        try{
+            Log.d("testsoap","Init début");
+            SoapObject request = new SoapObject ( "http://service/", "convertir");
+            //passage des paramètres
+            request.addProperty("source",source);
+            request.addProperty("cible",cible);
+            request.addProperty("montant",montant);
+
+            Log.d("testsoap","creation du SOAPObject");
+            SoapSerializationEnvelope enveloppe =  new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            enveloppe.setOutputSoapObject(request);
+            HttpTransportSE androidHttpTransport = new HttpTransportSE (URLSERVICE);
+            Log.d("testsoap","creation de l'enveloppe ok");
+
+            androidHttpTransport.call("convertir", enveloppe);
+
+
+            Log.d("testsoap","Transport ok");
+
+            SoapObject objetSOAP = (SoapObject)enveloppe.bodyIn;
+
+            objetSOAP.getProperty(0).toString();
+            Log.d("testsoap","le resultat de la conversion est: "+objetSOAP.getProperty(0).toString());
+
+
+        } catch (IOException e) {
+            Log.d("testsoap",e.toString());
+        } catch (XmlPullParserException e) {
+            Log.d("testsoap",e.toString());
+        }
+        catch (Exception e) {
+            Log.d("testsoap",e.toString());
+        }
+
+        Log.d("testsoap","result= "+result.toString());
+
+        return result;
+
+    }
+
+
 
 }

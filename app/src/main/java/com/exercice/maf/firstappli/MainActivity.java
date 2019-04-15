@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,9 +21,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 
-
-import metier.ConvertisseurBDD;
-import metier.ConvertisseurSOAP;
 import metier.ConvertisseurXML;
 
 
@@ -79,6 +75,11 @@ private boolean fond = true;
     }
 
     private void initBouton(){
+
+        //on récupère la liste des devises sur le web service SOAP
+        AsyncTaskGetListeDevise asyncTaskGetListeDevise = new AsyncTaskGetListeDevise(this);
+        asyncTaskGetListeDevise.execute();
+
         //on récupère le fichier de préférences
         SharedPreferences settings=getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
         //on crée un objet Editor pour travailler sur les preferences
@@ -97,9 +98,15 @@ private boolean fond = true;
 
 
 
+        //*********Conversion XML
+            ConvertisseurXML conv= new ConvertisseurXML(this);
+            ArrayList <String> toto = new ArrayList<>(conv.getConversionTable().keySet());
+        //***************************
 
-        ConvertisseurXML conv= new ConvertisseurXML(this);
-        ArrayList <String> toto = new ArrayList<>(conv.getConversionTable().keySet());
+        //**********Conversion avec web Service sOAP*************
+        //ArrayList <String> toto= asyncTaskGetListeDevise.getListeDevise();
+
+
         adapter = new ArrayAdapter <String> (this,android.R.layout.simple_spinner_item, toto);
         //Définir le style des éléments de l'adapteur
         adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
@@ -190,9 +197,7 @@ private boolean fond = true;
             case R.id.menuChangerFond:
 
                 changerFond();
-               //intentPrincipale.putExtra("skinPrincipale", "verte") ;
-                //Toast.makeText(this, "skin principale = " + intentPrincipale.getExtras().getString("skinPrincipale"), Toast.LENGTH_SHORT).show();
-                //finish();
+
 
                 return true;
             case R.id.menuChangerLangue:
@@ -225,8 +230,8 @@ private boolean fond = true;
     public boolean calculer (View v)
     {
 
-        AsyncTaskExample asyncTaskExample = new AsyncTaskExample(this);
-        asyncTaskExample.execute();
+
+
 
         boolean ok= true;
 
@@ -247,7 +252,13 @@ private boolean fond = true;
         if (!montant.getText().toString().isEmpty() && !montant.getText().toString().equals(".")) { //cas où on a saisi un montant
             Double montantAConvertir = Double.parseDouble(montant.getText().toString());
             resultat = ConvertisseurXML.convertir(deviseDepart, deviseArrivee, montantAConvertir);
+
             Toast.makeText(this, resultat.toString(), Toast.LENGTH_SHORT).show();
+
+            //on fait la conversion sur le web service SOAP
+            AsyncTaskConvertir asyncTaskConvertir = new AsyncTaskConvertir(this,deviseDepart,deviseArrivee,montant.getText().toString());
+            asyncTaskConvertir.execute();
+
 
             Intent intent = new Intent(this, PageResultat.class);
             intent.putExtra("deviseDepart",deviseDepart);
