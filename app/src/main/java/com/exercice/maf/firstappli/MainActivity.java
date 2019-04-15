@@ -43,7 +43,10 @@ private boolean fond = true;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initBouton();
+
+        //on récupère la liste des devises sur le web service SOAP
+        AsyncTaskGetListeDevise asyncTaskGetListeDevise = new AsyncTaskGetListeDevise(this);
+        asyncTaskGetListeDevise.execute();
 
 
 
@@ -74,11 +77,7 @@ private boolean fond = true;
 
     }
 
-    private void initBouton(){
-
-        //on récupère la liste des devises sur le web service SOAP
-        AsyncTaskGetListeDevise asyncTaskGetListeDevise = new AsyncTaskGetListeDevise(this);
-        asyncTaskGetListeDevise.execute();
+    public void initBouton(ArrayList <String> listeDevise){
 
         //on récupère le fichier de préférences
         SharedPreferences settings=getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
@@ -100,12 +99,12 @@ private boolean fond = true;
 
         //*********Conversion XML
             ConvertisseurXML conv= new ConvertisseurXML(this);
-            ArrayList <String> toto = new ArrayList<>(conv.getConversionTable().keySet());
+          //  ArrayList <String> toto = new ArrayList<>(conv.getConversionTable().keySet());
         //***************************
 
         //**********Conversion avec web Service sOAP*************
         //ArrayList <String> toto= asyncTaskGetListeDevise.getListeDevise();
-
+        ArrayList <String> toto = listeDevise;
 
         adapter = new ArrayAdapter <String> (this,android.R.layout.simple_spinner_item, toto);
         //Définir le style des éléments de l'adapteur
@@ -130,6 +129,7 @@ private boolean fond = true;
 
         registerForContextMenu(findViewById(R.id.imageViewOption));
     }
+
 
 
     public boolean onCreateOptionsMenu(Menu menu)
@@ -250,16 +250,16 @@ private boolean fond = true;
         editor.commit();
 
         if (!montant.getText().toString().isEmpty() && !montant.getText().toString().equals(".")) { //cas où on a saisi un montant
-            Double montantAConvertir = Double.parseDouble(montant.getText().toString());
-            resultat = ConvertisseurXML.convertir(deviseDepart, deviseArrivee, montantAConvertir);
+            //Double montantAConvertir = Double.parseDouble(montant.getText().toString());
+            //resultat = ConvertisseurXML.convertir(deviseDepart, deviseArrivee, montantAConvertir);
 
-            Toast.makeText(this, resultat.toString(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, resultat.toString(), Toast.LENGTH_SHORT).show();
 
             //on fait la conversion sur le web service SOAP
             AsyncTaskConvertir asyncTaskConvertir = new AsyncTaskConvertir(this,deviseDepart,deviseArrivee,montant.getText().toString());
             asyncTaskConvertir.execute();
 
-
+               /*   mis ces lignes dans la tache asynchrone pour la gestion du calcul par le web servcice
             Intent intent = new Intent(this, PageResultat.class);
             intent.putExtra("deviseDepart",deviseDepart);
             intent.putExtra("deviseArrivee",deviseArrivee);
@@ -267,6 +267,7 @@ private boolean fond = true;
             intent.putExtra("montantInitial", montantAConvertir.toString());
 
             startActivity(intent);
+            */
         }
         else{//montant non saisi
             ok= false;
@@ -286,7 +287,7 @@ private boolean fond = true;
            setContentView(R.layout.activity_main);
            fond = true;
        }
-      initBouton();
+      initBouton(new ArrayList<String>());
 
     }
 

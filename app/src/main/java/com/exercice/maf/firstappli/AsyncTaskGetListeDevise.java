@@ -49,7 +49,7 @@ public class AsyncTaskGetListeDevise extends AsyncTask<Void, Void, Boolean>
     protected Boolean doInBackground(Void... arg0) {
 
        soap= new ConvertisseurSOAP();
-
+       listeDevise= soap.getConversionTable();
 
         return null;
         /*
@@ -72,10 +72,11 @@ public class AsyncTaskGetListeDevise extends AsyncTask<Void, Void, Boolean>
          *  -...
          */
 
-        listeDevise= soap.getConversionTable();
 
         //arret de la progressbarre
         progressDialog.dismiss();
+        Activity act= (MainActivity) activity;
+        ((MainActivity) act).initBouton(listeDevise);
     }
 
     @Override

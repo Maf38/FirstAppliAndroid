@@ -3,7 +3,9 @@ package com.exercice.maf.firstappli;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import metier.ConvertisseurSOAP;
 
@@ -16,6 +18,7 @@ public class AsyncTaskConvertir extends AsyncTask<Void, Void, Boolean>
     private String source;
     private String cible;
     private String montant;
+    private String resultat;
 
 
     ProgressDialog progressDialog;
@@ -51,14 +54,14 @@ public class AsyncTaskConvertir extends AsyncTask<Void, Void, Boolean>
     protected Boolean doInBackground(Void... arg0) {
 
         ConvertisseurSOAP soap= new ConvertisseurSOAP();
-        soap.Convertir(source,cible,montant);
-
+        resultat=soap.Convertir(source,cible,montant);
+        Log.d("testsoap","soap.convertir ="+resultat);
         return null;
         /*
          * Ici, le code qui doit être exécuté dans l'AsyncTask, par exemple:
          *  -Une requête de base de données
          *  -Un appel à un Web Service
-         *  -...
+         *  -...45
          */
 
 
@@ -76,6 +79,13 @@ public class AsyncTaskConvertir extends AsyncTask<Void, Void, Boolean>
 
         //arret de la progressbarre
         progressDialog.dismiss();
+        Intent intent = new Intent(context, PageResultat.class);
+        intent.putExtra("deviseDepart",source);
+        intent.putExtra("deviseArrivee",cible);
+        intent.putExtra("resultat",resultat);
+        intent.putExtra("montantInitial", montant);
+
+        context.startActivity(intent);
     }
 
     @Override

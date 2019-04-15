@@ -13,8 +13,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ConvertisseurSOAP  {
+    //Home
+    //private final String URLSERVICE="http://192.168.177.1:8080/WebServiceConvertisseur/WebServiceConvertisseur?WSDL";
 
-    private final String URLSERVICE="http://192.168.177.1:8080/WebServiceConvertisseur/WebServiceConvertisseur?WSDL";
+    //AFPA
+    private final String URLSERVICE="http://172.16.153.41:8080/WebServiceConvertisseur/WebServiceConvertisseur?WSDL";
 
     public ArrayList <String> getConversionTable (){
 
@@ -78,7 +81,7 @@ public class ConvertisseurSOAP  {
 
             SoapObject objetSOAP = (SoapObject)enveloppe.bodyIn;
 
-            objetSOAP.getProperty(0).toString();
+            result= objetSOAP.getProperty(0).toString();
             Log.d("testsoap","le resultat de la conversion est: "+objetSOAP.getProperty(0).toString());
 
 
